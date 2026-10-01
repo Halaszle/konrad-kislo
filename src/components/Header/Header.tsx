@@ -110,8 +110,8 @@ export function Header() {
           onClick={() => setIsOpen((open) => !open)}
         >
           <span className="visually-hidden">{isOpen ? "Close menu" : "Open menu"}</span>
-          <span className={styles.toggleBar} aria-hidden="true" />
-          <span className={styles.toggleBar} aria-hidden="true" />
+          <span className={`${styles.toggleBar} ${styles.toggleBarTop}`} aria-hidden="true" />
+          <span className={`${styles.toggleBar} ${styles.toggleBarBottom}`} aria-hidden="true" />
         </button>
 
         <nav

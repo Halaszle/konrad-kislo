@@ -10,8 +10,7 @@
   margin: 0;
   padding: var(--space-6) var(--gutter) var(--space-4);
   border: 0;
-  background: var(--grain) var(--color-dark);
-  background-blend-mode: soft-light;
+  background: var(--grain) 0 0 / var(--grain-size) var(--color-dark);
   color: var(--color-text-inverse);
   touch-action: pan-y;
 }

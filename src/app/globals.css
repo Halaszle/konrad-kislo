@@ -49,11 +49,18 @@
 
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 
-  /* Film grain for flat backgrounds: a tiling, high-contrast grey SVG noise, blended with
-     `background-blend-mode: soft-light` wherever it is used. Mid-grey leaves the colour untouched,
-     so the grain only lightens/darkens specks and never greys out the warm palette.
-     Strength is set by the rect opacity (0.8) — ~0.4 is subtle, 1 is the maximum. */
-  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='2.2' intercept='-0.6'/%3E%3CfeFuncG type='linear' slope='2.2' intercept='-0.6'/%3E%3CfeFuncB type='linear' slope='2.2' intercept='-0.6'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.8'/%3E%3C/svg%3E");
+  /* Film grain for flat backgrounds: a tiling PNG of fine, semi-transparent light and dark specks
+     (src/assets/textures/grain.png, 200×200). It is a plain image on purpose — SVG noise filters
+     and blend modes render coarse and opaque in iOS Safari. On high-density screens the tile is
+     drawn at half size, so one speck is one device pixel wide. */
+  --grain: url("../assets/textures/grain.png");
+  --grain-size: 200px;
+}
+
+@media (min-resolution: 2dppx) {
+  :root {
+    --grain-size: 100px;
+  }
 }
 
 *,
@@ -70,8 +77,9 @@ html {
 
 body {
   margin: 0;
-  background: var(--grain) var(--color-bg);
-  background-blend-mode: soft-light;
+  background: var(--grain) 0 0 / var(--grain-size) var(--color-bg);
+  /* never let anything widen the page sideways (iOS would zoom the whole page out) */
+  overflow-x: clip;
   color: var(--color-text);
   font-family: var(--font-body);
   font-size: var(--text-base);
@@ -146,7 +154,7 @@ a {
 .section {
   padding-block: var(--section-space);
   background-image: var(--grain);
-  background-blend-mode: soft-light;
+  background-size: var(--grain-size);
 }
 
 /* 12-column grid. Children are placed with `grid-column` in the section modules. */
@@ -238,7 +246,6 @@ a {
   height: 14px;
   transform: translateY(-100%);
   background: inherit;
-  background-blend-mode: inherit;
   pointer-events: none;
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 14' preserveAspectRatio='none'%3E%3Cpath d='M0 14V7L14 10.4L37 4.7L73 7.3L97 9L134 7.3L169 8.1L208 4.9L233 8.7L268 3.4L303 6.7L345 9.5L363 7.1L405 8.5L438 7.6L479 10.3L504 5.7L543 5.7L562 5.4L589 5.4L631 7.5L667 10L683 5.2L714 7.1L741 4.5L782 3.4L807 5.8L841 10.4L870 4.3L896 5.3L921 6.4L945 7.3L977 4.9L1018 6.7L1058 8.1L1091 7.1L1120 8.5L1162 6.2L1197 5L1200 7V14Z'/%3E%3C/svg%3E")
     repeat-x left bottom / 1200px 100%;

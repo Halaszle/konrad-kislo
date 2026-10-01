@@ -9,8 +9,7 @@
   inset: 0 0 auto;
   z-index: 50;
   height: var(--bar-height);
-  background: var(--grain) var(--color-bg-alt);
-  background-blend-mode: soft-light;
+  background: var(--grain) 0 0 / var(--grain-size) var(--color-bg-alt);
   box-shadow: 0 1px 0 rgb(0 0 0 / 0);
   transition: height var(--bar-transition), box-shadow var(--bar-transition);
 }
@@ -86,35 +85,51 @@
 }
 
 @media (max-width: 47.99rem) {
+  /* Explicit sizes, colour and appearance reset: iOS Safari applies its own button styling otherwise */
   .toggle {
     position: relative;
     z-index: 2;
-    display: inline-flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 7px;
+    display: block;
+    flex-shrink: 0;
     width: 2.75rem;
     height: 2.75rem;
-    padding: 0.625rem;
+    margin-right: -0.5rem;
+    padding: 0;
     border: 0;
-    background: none;
-    color: inherit;
+    border-radius: 0;
+    background: transparent;
+    color: var(--color-text);
     cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    -webkit-tap-highlight-color: transparent;
   }
 
+  /* Two bars, each positioned absolutely; they cross into an X when the menu is open */
   .toggleBar {
-    display: block;
+    position: absolute;
+    left: 0.625rem;
+    right: 0.625rem;
+    top: 50%;
     height: 1.5px;
-    background: currentColor;
+    background-color: currentColor;
     transition: transform 0.3s var(--ease);
   }
 
-  .toggle[aria-expanded="true"] .toggleBar:first-of-type {
-    transform: translateY(4.25px) rotate(45deg);
+  .toggleBarTop {
+    transform: translateY(-4px);
   }
 
-  .toggle[aria-expanded="true"] .toggleBar:last-of-type {
-    transform: translateY(-4.25px) rotate(-45deg);
+  .toggleBarBottom {
+    transform: translateY(4px);
+  }
+
+  .toggle[aria-expanded="true"] .toggleBarTop {
+    transform: rotate(45deg);
+  }
+
+  .toggle[aria-expanded="true"] .toggleBarBottom {
+    transform: rotate(-45deg);
   }
 
   .nav {
@@ -123,8 +138,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--grain) var(--color-bg-alt);
-    background-blend-mode: soft-light;
+    background: var(--grain) 0 0 / var(--grain-size) var(--color-bg-alt);
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s var(--ease), visibility 0.3s;
