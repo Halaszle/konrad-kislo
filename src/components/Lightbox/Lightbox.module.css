@@ -1,0 +1,155 @@
+/* The UA stylesheet hides a closed <dialog>; only lay it out while it is open. */
+.dialog {
+  /* space left for the photo once padding, caption and (on phones) the arrows are taken */
+  --lightbox-max-height: calc(100dvh - 12rem);
+
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: var(--space-6) var(--gutter) var(--space-4);
+  border: 0;
+  background: var(--grain) var(--color-dark);
+  background-blend-mode: soft-light;
+  color: var(--color-text-inverse);
+  touch-action: pan-y;
+}
+
+.dialog[open] {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-3);
+  animation: fade-in 0.4s var(--ease);
+}
+
+.dialog::backdrop {
+  background: rgb(20 18 15 / 0.6);
+}
+
+.figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+  min-height: 0;
+}
+
+.frame {
+  position: relative;
+}
+
+.image {
+  object-fit: contain;
+  animation: fade-in 0.5s var(--ease);
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.caption {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+}
+
+.captionText {
+  font-family: var(--font-hand);
+  font-size: var(--text-lg);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.counter {
+  font-family: var(--font-condensed);
+  font-size: var(--text-base);
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  opacity: 0.7;
+}
+
+/* Buttons: bare hand-drawn marks, no boxes */
+
+.close,
+.nav {
+  display: grid;
+  place-items: center;
+  padding: var(--space-2);
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  transition: opacity 0.2s var(--ease), transform 0.3s var(--ease);
+}
+
+.close:hover,
+.nav:hover {
+  opacity: 0.75;
+}
+
+.close {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--gutter);
+}
+
+.close svg {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.arrow {
+  width: 2.5rem;
+  height: 1.25rem;
+}
+
+.arrowBack {
+  transform: scaleX(-1);
+}
+
+.prev:hover {
+  transform: translateX(-0.3rem);
+}
+
+.next:hover {
+  transform: translateX(0.3rem);
+}
+
+/* Phones: arrows sit below the photo; swiping also works */
+@media (max-width: 47.99rem) {
+  .dialog {
+    --lightbox-max-height: calc(100dvh - 16rem);
+  }
+
+  .dialog[open] {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    align-content: center;
+    row-gap: var(--space-4);
+  }
+
+  .figure {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  .prev {
+    grid-row: 2;
+    justify-self: start;
+  }
+
+  .next {
+    grid-row: 2;
+    justify-self: end;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

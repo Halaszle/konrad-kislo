@@ -1,0 +1,80 @@
+/* The hero starts at the very top of the page, underneath the fixed header, so the header can
+   grow and shrink over the photo without ever revealing an empty strip. The padding keeps the
+   title centred in the visible part below the header. */
+.hero {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: calc(clamp(22rem, 39vw, 40rem) + var(--header-height));
+  margin-top: calc(-1 * var(--header-height));
+  padding-top: var(--header-height);
+  overflow: hidden;
+  background: var(--color-bg-alt);
+  isolation: isolate;
+}
+
+/* Photo layer is taller than the hero: the extra height above is revealed as the layer moves down on scroll.
+   It must be at least SPEED × hero height (see HeroParallax.tsx). */
+.parallax {
+  position: absolute;
+  inset: -40% 0 0;
+  z-index: -2;
+  will-change: transform;
+}
+
+.image {
+  object-fit: cover;
+}
+
+/* Misty wash over the photo, as in the design */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgb(237 233 222 / 0.72);
+}
+
+.content {
+  padding: var(--space-4) var(--gutter);
+  text-align: center;
+  animation: fade-up 1.2s var(--ease) both;
+}
+
+.title {
+  font-size: var(--text-hero);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.tagline {
+  margin-top: var(--space-2);
+  font-size: var(--text-lg);
+  line-height: var(--leading-tight);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* On phones the tagline stays on one line, scaled to the screen width,
+   instead of breaking after the second dot. */
+@media (max-width: 30rem) {
+  .tagline {
+    font-size: 3.6vw;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

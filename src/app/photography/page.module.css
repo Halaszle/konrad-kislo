@@ -1,0 +1,8 @@
+.page {
+  background-color: var(--color-bg-alt);
+}
+
+.back {
+  margin-top: var(--space-block);
+  text-align: center;
+}

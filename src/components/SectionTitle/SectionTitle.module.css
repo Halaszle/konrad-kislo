@@ -1,0 +1,33 @@
+.header {
+  --tracking: 0.18em;
+
+  margin-bottom: var(--space-title);
+  text-align: center;
+}
+
+.title {
+  /* compensate for the trailing letter-spacing so the text is optically centred */
+  padding-left: var(--tracking);
+  font-family: var(--font-hand);
+  font-size: var(--text-2xl);
+  font-weight: 400;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking);
+  text-transform: uppercase;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--space-2);
+  font-size: var(--text-md);
+  line-height: var(--leading-body);
+  /* centred multi-line intro: split lines evenly instead of leaving one word behind */
+  text-wrap: balance;
+}
+
+@media (min-width: 48rem) {
+  .header {
+    --tracking: 0.3em;
+  }
+}

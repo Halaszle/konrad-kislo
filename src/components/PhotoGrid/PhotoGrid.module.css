@@ -1,0 +1,80 @@
+.grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.item {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-bg);
+}
+
+/* The whole photo is the button that opens the lightbox */
+.open {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+
+.open:focus-visible {
+  outline: 2px solid var(--color-text);
+  outline-offset: 3px;
+}
+
+.image {
+  object-fit: cover;
+  transition: transform 0.8s var(--ease), filter 0.8s var(--ease);
+}
+
+.item:hover .image {
+  transform: scale(1.03);
+}
+
+/* Hand-lettered caption that rises from the bottom edge on hover, over a soft dark fade.
+   It stays in the DOM (only visually hidden), so screen readers always read it. */
+.caption {
+  position: absolute;
+  inset: auto 0 0;
+  padding: var(--space-5) var(--space-3) var(--space-2);
+  background: linear-gradient(to top, rgb(20 18 15 / 0.55), rgb(20 18 15 / 0));
+  color: var(--color-text-inverse);
+  font-family: var(--font-hand);
+  font-size: var(--text-md);
+  line-height: var(--leading-tight);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(0.75rem);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+  pointer-events: none;
+}
+
+.item:hover .caption {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (min-width: 48rem) {
+  .row {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .item {
+    flex-shrink: 1;
+    flex-basis: 0;
+    min-width: 0;
+  }
+}

@@ -1,0 +1,53 @@
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  font-family: var(--font-hand);
+  font-size: var(--text-lg);
+  line-height: var(--leading-tight);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  /* the arrow must never wrap away from the text */
+  white-space: nowrap;
+}
+
+@media (max-width: 30rem) {
+  .link {
+    font-size: var(--text-base);
+    letter-spacing: 0.08em;
+  }
+}
+
+.arrow {
+  flex-shrink: 0;
+  width: 1.6em;
+  height: 0.8em;
+  transition: transform 0.45s var(--ease);
+}
+
+.arrowBack {
+  transform: scaleX(-1);
+}
+
+.link:hover .arrow,
+.link:focus-visible .arrow {
+  transform: translateX(0.4em);
+}
+
+.link:hover .arrowBack,
+.link:focus-visible .arrowBack {
+  transform: scaleX(-1) translateX(0.4em);
+}
+
+/* Smaller and turned upwards; on hover it rises instead of sliding sideways */
+.arrowUp {
+  width: 1.2em;
+  height: 0.6em;
+  transform: rotate(-90deg);
+}
+
+.link:hover .arrowUp,
+.link:focus-visible .arrowUp {
+  transform: rotate(-90deg) translateX(0.3em);
+}

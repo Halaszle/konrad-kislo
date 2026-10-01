@@ -1,0 +1,24 @@
+.section {
+  background-color: var(--color-bg);
+}
+
+.grid {
+  align-items: start;
+}
+
+.portrait {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+@media (min-width: 48rem) {
+  .portrait {
+    grid-column: 1 / span 4;
+  }
+
+  /* column 5 stays empty as breathing room between the photo and the text */
+  .text {
+    grid-column: 6 / -1;
+  }
+}

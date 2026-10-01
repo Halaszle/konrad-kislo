@@ -1,0 +1,8 @@
+.section {
+  background-color: var(--color-bg-alt);
+}
+
+.more {
+  margin-top: var(--space-block);
+  text-align: center;
+}

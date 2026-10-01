@@ -1,0 +1,33 @@
+.section {
+  background-color: var(--color-bg);
+}
+
+.grid {
+  align-items: start;
+}
+
+.image {
+  width: 100%;
+  aspect-ratio: 476 / 342;
+  object-fit: cover;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.cta {
+  margin-top: var(--space-5);
+}
+
+@media (min-width: 48rem) {
+  .image {
+    grid-column: 1 / span 5;
+  }
+
+  .body {
+    grid-column: 6 / -1;
+  }
+}
