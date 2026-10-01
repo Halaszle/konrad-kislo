@@ -51,16 +51,11 @@
 
   /* Film grain for flat backgrounds: a tiling PNG of fine, semi-transparent light and dark specks
      (src/assets/textures/grain.png, 200×200). It is a plain image on purpose — SVG noise filters
-     and blend modes render coarse and opaque in iOS Safari. On high-density screens the tile is
-     drawn at half size, so one speck is one device pixel wide. */
+     and blend modes render coarse and opaque in iOS Safari. The tile is always drawn at half its
+     size: specks stay finer than a CSS pixel, so they never blur into blotches on scaled
+     desktop screens (125%, 150%) and stay crisp on Retina phones. */
   --grain: url("../assets/textures/grain.png");
-  --grain-size: 200px;
-}
-
-@media (min-resolution: 2dppx) {
-  :root {
-    --grain-size: 100px;
-  }
+  --grain-size: 100px;
 }
 
 *,
