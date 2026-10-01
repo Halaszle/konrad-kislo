@@ -1,6 +1,8 @@
 .footer {
   padding-bottom: var(--space-4);
   background-color: var(--color-dark);
+  /* stronger grain texture for the dark background (picked up by .section) */
+  --grain: var(--grain-dark);
   color: var(--color-text-inverse);
 }
 
